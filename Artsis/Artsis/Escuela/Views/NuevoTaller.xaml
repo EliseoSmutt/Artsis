@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Escuela.Views.NuevoTaller"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmNuevoTaller="clr-namespace:Artsis.Escuela.ViewModels"
+               Size="450,600"
+
+
+               Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <!-- Transparent to see the Frame's color -->
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmNuevoTaller:NuevoTallerViewModel"
+                     BackgroundColor="#dfd9bb"
+                     >
+
+
+            <Entry Placeholder="Nombre Taller" PlaceholderColor="Black" Text="{Binding NombreTaller}" TextColor="Black" Margin="5"/>
+
+
+            <Entry Placeholder="Buscar Tallerista"
+                   PlaceholderColor="Black"
+                    Text="{Binding FiltroTallerista}"
+                    TextColor="Black"
+                    Margin="5"
+                    Focused="OnEntryFocused"
+                    Unfocused="OnEntryUnfocused"
+            />
+
+            <ScrollView IsVisible="{Binding MostrarTalleristas}">
+                 <CollectionView ItemsSource="{Binding FilteredTalleristas}"
+                     SelectionMode="Single"
+                     SelectedItem="{Binding TalleristaSeleccionado}"
+                     MaximumHeightRequest="100">
+                        <CollectionView.ItemTemplate>
+                             <DataTemplate>
+                                 <Label Text="{Binding NombreTallerista}"
+                                       Padding="5"
+                                       TextColor="Black"/>
+                             </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                 </CollectionView>
+            </ScrollView>
+
+            <Picker Title="Espacio Taller" TitleColor="Black" Margin="5"  SelectedItem="{Binding EspacioSeleccionado}" TextColor="Black" BackgroundColor="#D4CFB7">
+                <Picker.Items >
+
+                    <x:String>Auditorio</x:String>
+                    <x:String>Ex Biblio</x:String>
+              
+                </Picker.Items>
+            </Picker>
+
+            <Entry Placeholder="Cupo" PlaceholderColor="Black" Text="{Binding CupoTaller}" TextColor="Black" Margin="5"/>
+
+            <Label Text="Fecha de Inicio" TextColor="Black" Margin="5,10,5,0"/>
+            <DatePicker Date="{Binding FechaInicio, Mode=TwoWay}" Format="dd/MM/yyyy" TextColor="Black" Margin="5"/>
+
+            <Label Text="Fecha de Finalización" TextColor="Black" Margin="5,10,5,0"/>
+            <DatePicker Date="{Binding FechaFinal, Mode=TwoWay}" Format="dd/MM/yyyy" TextColor="Black" Margin="5"/>
+
+            <Button Text="Guardar" Command="{Binding GuardarTallerCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White"/>
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Biblioteca.Views.NuevaReserva"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmNuevaReserva="clr-namespace:Artsis.Biblioteca.ViewModels"
+               Size="450,300"
+
+
+               Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <!-- Transparent to see the Frame's color -->
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmNuevaReserva:NuevaReservaViewModel"
+                     BackgroundColor="#dfd9bb"
+                     >
+
+
+            <!--<Entry Placeholder="Libro" Text="{Binding }" TextColor="Black" Margin="5"/>-->
+            <Entry Placeholder="Dni Abonado" PlaceholderColor="Black" Text="{Binding Dni}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Observaciones" PlaceholderColor="Black" Text="{Binding Observaciones}" TextColor="Black" Margin="5"/>
+
+            <Button Text="Reservar" Command="{Binding GuardarReservaCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White"/>
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>

@@ -1,0 +1,156 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { packages: ['corechart'] });
+        google.charts.setOnLoadCallback(initialize);
+
+        var chart;
+        var data;
+
+        function initialize() {
+            var selectedYear = document.getElementById('yearSelect').value;
+            cargarDatosDelAnio(selectedYear);
+        }
+
+        function drawChart(renovaciones) {
+
+            // Convertir los datos a un formato adecuado para Google Charts
+            var dataArray = [['Mes', 'Cantidad de Renovaciones']];
+            renovaciones.forEach(function (item) {
+                dataArray.push([item.mesNombre, item.cantidadRenovaciones]);
+            });
+
+            data = google.visualization.arrayToDataTable(dataArray);
+
+            var options = {
+                backgroundColor: '#040006',
+                hAxis: { title: 'Meses', titleTextStyle: { color: '#DFD9BB', fontSize: 18 }, textStyle: { color: '#DFD9BB' } },
+                vAxis: {
+                    minValue: 0, textStyle: { color: '#DFD9BB' },
+                    gridlines: { count: -1 }, // Google ajusta automáticamente a números enteros
+                    format: '0', // Fuerza a mostrar solo números enteros
+                },
+                chartArea: { width: '70%', height: '70%' },
+                colors: ['#b11c3c'],
+                top: 25,
+                bottom: 70,
+                pieSliceTextStyle: {//etiquetas
+                    fontSize: 23,
+                    bold: true,
+                    color: '#DFD9BB'
+                },
+                legend: {// leyendas
+                    position: 'right',
+                    alligment: 'center',
+                    textStyle: {
+                        color: '#DFD9BB',
+                        fontSize: 18
+                    }
+                }
+            };
+
+            chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+
+        function cargarDatosDelAnio(year) {
+            var title = '/*TITLE_PLACEHOLDER*/';                   
+            var url = 'https://localhost:7077/api/Abonado/renovaciones-abonos?year=' + year;
+            fetch(url)
+                .then(response => response.json())
+                .then(newData => {
+                    console.log("Datos recibidos:", newData);
+
+                    if (newData.length === 0) {
+                        document.getElementById('chart_div').innerHTML = "<p>No hay datos para el año seleccionado.</p>";
+                        title += ` en ${year}`;
+                        document.getElementById('chart-title').innerText = title;
+                        return;
+                    }
+                    renovacionesData = newData;
+
+                    var totalRenovaciones = renovacionesData.reduce((sum, item) => sum + item.cantidadRenovaciones, 0);
+
+                    title += ` en ${year} = ${totalRenovaciones} renovaciones`;
+                    
+                    document.getElementById('chart-title').innerText = title;
+
+                    drawChart(renovacionesData);
+                })
+                .catch(error => {
+                    console.error('Error al obtener datos:', error);
+                    document.getElementById('chart_div').innerHTML = "<p>Error al obtener datos.</p>";
+                });
+        }
+
+        function onYearChange() {
+            var selectedYear = document.getElementById('yearSelect').value;
+            cargarDatosDelAnio(selectedYear);
+        }
+    </script>
+    <style>
+        body {
+            background-color: #040006;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0
+        }
+
+        #selectors-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+
+        select {
+            background-color: #DFD9BB;
+            font-size: 18px;
+            padding: 10px;
+            width: 200px;
+            height: 50px;
+            margin: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        #chart_div {
+            display: flex;
+            background-color: #040006;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            margin-bottom: 15px;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="selectors-container">
+        <select id="yearSelect" onchange="onYearChange()">
+        </select>
+        <script>
+            var currentYear = new Date().getFullYear();
+            var select = document.getElementById('yearSelect');
+            for (var y = currentYear; y > currentYear - 5; y--) {
+                var opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y;
+                if (y === currentYear) opt.selected = true;
+                select.appendChild(opt);
+            }
+        </script>
+    </div>
+
+    <h2 id="chart-title" style="text-align: center; color: #DFD9BB; margin: 10px 0; font-size: 24px;">
+        Cantidad de personas que renovaron su abono
+    </h2>
+    <div id="chart_div" style="width: 100%; height: 500px;"></div>
+</body>
+</html>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Boleteria.Boleteria"
+             xmlns:local="clr-namespace:Artsis.Helpers"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:vmBoleteria="clr-namespace:Artsis.Boleteria"
+             x:Name="BoleteriaPage"
+             Title=""
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:DataType ="vmBoleteria:BoleteriaViewModel" BackgroundColor="#040009" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!--<Grid.RowDefinitions>
+            <RowDefinition Height="0.3" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>-->
+
+        <!-- Barra desplegable -->
+        <StackLayout Grid.Column="0" BackgroundColor="#b11c3c" Padding="10">
+            <Label Text="BOLETERIA" FontSize="24" FontAttributes="Bold" TextColor="#DFD9BB" VerticalOptions="Start" Margin="0,0,0,20" />
+            <Button Text="FUNCIONES" BackgroundColor="#DFD9BB" TextColor="black" Margin="0,10"/>
+            <Button Text="PELICULAS" BackgroundColor="#DFD9BB" Command="{Binding BoleteriaPeliculasCommand}" TextColor="black" Margin="0,10"/>
+            <Image Source="logocine.png" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="0,10"/>
+            <Button Text="CERRAR SESION" Command="{Binding CerrarSesionCommand}" BackgroundColor="#DFD9BB" VerticalOptions="EndAndExpand"  TextColor="black" Margin="0,10"/>
+        </StackLayout>
+
+        <!-- Contenedor Main -->
+        <ScrollView Grid.Column="1" Padding="10" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <VerticalStackLayout Spacing="10">
+
+
+                <!-- Botones -->
+
+                <Grid ColumnDefinitions="*, Auto" HorizontalOptions="FillAndExpand">
+                    <!-- Columna 1: Botón Nueva Función -->
+                    <Button Grid.Column="0"
+                    Text="Nueva Función" 
+                    Command ="{Binding RegistrarFuncionCommand}"  
+                    BackgroundColor="#b11c3c"  
+                    TextColor="White" 
+                    HorizontalOptions="Start" 
+                    VerticalOptions="Center" />
+
+                    <!-- Columna 2: Controles de la derecha -->
+                    <HorizontalStackLayout Grid.Column="1" Spacing="30" HorizontalOptions="End" VerticalOptions="Center">
+                        
+
+                        <Picker
+                            Title="Selecciona una película"
+                            TitleColor="white"
+                            ItemsSource="{Binding Peliculas}"
+                            ItemDisplayBinding="{Binding Titulo}"
+                            SelectedItem="{Binding PeliculaSeleccionada}"
+                            TextColor="White"
+                            VerticalOptions="Center" />
+
+                        <Button Text="Filtrar Funcion"  
+                            Command ="{Binding BuscarCommand}"   
+                            BackgroundColor="#b11c3c" 
+                            TextColor="White" 
+                            VerticalOptions="Center"  />
+                    </HorizontalStackLayout>
+                </Grid>
+
+                <!-- Tabla con grids y labels por ahora -->
+
+                <CollectionView
+                    ItemsSource="{Binding Items}"
+                    RemainingItemsThreshold="5"
+                    RemainingItemsThresholdReachedCommand="{Binding CargarMasCommand}">
+                    <CollectionView.Header>
+                        <Grid BackgroundColor="Gray" Padding="10" ColumnSpacing="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="2.5*" />
+                                <ColumnDefinition Width="0.7*" />
+                                <ColumnDefinition Width="0.7*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.5*" />
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="#" Grid.Column="0" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Nombre" Grid.Column="1" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Dia" Grid.Column="2" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Hora" Grid.Column="3" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Sala" Grid.Column="4" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Ent. Vendidas" Grid.Column="5" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Acciones" Grid.Column="6" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnSpacing="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="2.5*" />
+                                    <ColumnDefinition Width="0.7*" />
+                                    <ColumnDefinition Width="0.7*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1.5*" />
+
+
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding NroFuncion}" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding TituloPelicula}" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="10,0" TextColor="White"/>
+                                <Label Text="{Binding Dia}" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding Horario}" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding Sala}" Grid.Column="4" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding EntradasVendidas}" Grid.Column="5" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+
+                                <StackLayout Orientation="Horizontal" Grid.Column="6" HorizontalOptions="Center" Spacing="5" >
+                                    <Entry  Text="{Binding CantEntradas, Mode=TwoWay}"  BackgroundColor="White" TextColor="Black" Margin="5,5,5,5" WidthRequest="10"/>
+                                    <Button ImageSource="peso.png"  WidthRequest="48" HeightRequest="48" BackgroundColor="#b11c3c" TextColor="White" Command="{Binding Source={x:Reference Name=BoleteriaPage}, Path=BindingContext.VenderEntradasCommand}" CommandParameter="{Binding .}"/>
+                                    <Button ImageSource="editar.png"  WidthRequest="48" HeightRequest="48" BackgroundColor="#b11c3c" TextColor="White" Command="{Binding Source={x:Reference Name=BoleteriaPage}, Path=BindingContext.ModificarFuncionCommand}" CommandParameter="{Binding .}"/>
+                                    <Button ImageSource="basura.png"  WidthRequest="48" HeightRequest="48" BackgroundColor="#b11c3c" TextColor="White" Command="{Binding Source={x:Reference Name=BoleteriaPage}, Path=BindingContext.BorrarFuncionCommand}" CommandParameter="{Binding Id}"/>
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

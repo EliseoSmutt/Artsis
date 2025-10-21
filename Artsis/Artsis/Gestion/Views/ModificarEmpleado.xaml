@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Gestion.Views.ModificarEmpleado"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmModificarEmpleado="clr-namespace:Artsis.Gestion.ViewModels"
+               Size="450,700"
+
+
+               Color="Transparent">
+    <!-- Transparent to see the Frame's color -->
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmModificarEmpleado:ModificarEmpleadoViewModel"
+                     BackgroundColor="#dfd9bb"
+                     >
+            <Entry Placeholder="Nombre" Text="{Binding Nombre}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Apellido" Text="{Binding Apellido}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="DNI" Text="{Binding Dni}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Email" Text="{Binding Email}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Telefono" Text="{Binding Telefono}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Direccion" Text="{Binding Direccion}" TextColor="Black" Margin="5"/>
+
+
+            <Entry Placeholder="Buscar Localidad"
+                Text="{Binding FiltroLocalidad}"
+                TextColor="Black"
+                Margin="5"
+                Focused="OnEntryFocused"
+                Unfocused="OnEntryUnfocused"
+                />
+
+
+            <ScrollView IsVisible="{Binding MostrarLocalidades}">
+                <CollectionView ItemsSource="{Binding LocalidadesFiltradas}"
+                    SelectionMode="Single"
+                    SelectedItem="{Binding LocalidadSeleccionada}"
+                    MaximumHeightRequest="100">
+                    <CollectionView.ItemTemplate>
+                       <DataTemplate>
+                            <Label Text="{Binding Nombre}"
+                                    Padding="5"
+                                    TextColor="Black"/>
+                       </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+
+            <Picker Title="Area" 
+                ItemsSource="{Binding AreasEmpleado}"
+                ItemDisplayBinding="{Binding .}"
+                SelectedItem="{Binding SelectedAreaEmpleado}"
+                TextColor="Black"
+                TitleColor="Black"
+                Margin="10,5"
+            />
+            <Button Text="Cambiar contraseña" Command="{Binding CambiarPassCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+
+            <StackLayout VerticalOptions="EndAndExpand" >
+                <Button Text="Guardar" Command="{Binding ModificarEmpleadoCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+                <Button Text="Cancelar" Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White"/>
+            </StackLayout>
+
+            
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>

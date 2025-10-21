@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Biblioteca.Views.Biblioteca"
+             xmlns:local="clr-namespace:Artsis.Helpers"
+             xmlns:vmBiblioteca="clr-namespace:Artsis.Biblioteca.ViewModels"
+             x:Name="BibliotecaPage"
+
+             Title=""
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:DataType ="vmBiblioteca:BibliotecaViewModel" BackgroundColor="#040006" >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra desplegable -->
+        <StackLayout Grid.Column="0" BackgroundColor="#b11c3c" Padding="10">
+            <Label Text="BIBLIOTECA" FontSize="24" FontAttributes="Bold" TextColor="#dfd9bb" VerticalOptions="Start" Margin="0,0,0,20" />
+            <Button Text="LIBROS" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Button Text="RESERVAS" Command="{Binding ReservasCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Image Source="logocine.png" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="0,10"/>
+            <Button Text="CERRAR SESION" Command="{Binding CerrarSesionCommand}" BackgroundColor="#dfd9bb" VerticalOptions="EndAndExpand"  TextColor="black" Margin="0,10"/>
+        </StackLayout>
+
+        
+        <ScrollView Grid.Column="1" Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Grid ColumnSpacing="10" RowDefinitions="Auto" ColumnDefinitions="Auto,*,Auto" HorizontalOptions="FillAndExpand">
+                    <Button Text="Agregar Libro" Command="{Binding RegistrarLibroCommand}" Grid.Column="0" BackgroundColor="#b11c3c" TextColor="White" Margin="5" HorizontalOptions="Start" />
+                    <HorizontalStackLayout Grid.Column="1" HorizontalOptions="Center" Spacing="5">
+                        <Entry Placeholder="Ingrese un Título o Autor" Text="{Binding FiltroLibros}"  BackgroundColor="White" TextColor="Black" Margin="5" WidthRequest="200" HorizontalOptions="Center" VerticalOptions="Center" />
+                        <Button Text="Restablecer"  BackgroundColor="#b11c3c" TextColor="White"  Margin="5"  HorizontalOptions="Center" Command="{Binding RestablecerCommand}" />
+                    </HorizontalStackLayout>
+                    <Button Text="Prestar" Grid.Column="3" BackgroundColor="#b11c3c" TextColor="White"  Margin="5" HorizontalOptions="End"  Command="{Binding Source={x:Reference Name=BibliotecaPage}, Path=BindingContext.RegistrarReservaCommand}" CommandParameter="{Binding .}" />
+                </Grid>
+
+                <!-- Tabla con grids y labels por ahora -->
+
+                <CollectionView ItemsSource="{Binding Items}"
+                                RemainingItemsThreshold="5"
+                                RemainingItemsThresholdReachedCommand="{Binding CargarMasCommand}">
+                    <CollectionView.Header>
+                        <Grid BackgroundColor="Gray" Padding="10">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="#" Grid.Column="0" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="20,0" />
+                            <Label Text="Título" Grid.Column="1" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="10,0" />
+                            <Label Text="Autor" Grid.Column="2" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Género" Grid.Column="3" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Disponible" Grid.Column="4" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Reservar" Grid.Column="5" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnSpacing="10">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+
+
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding NroFila}" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White" Margin="20,0"/>
+                                <Label Text="{Binding Nombre}" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="10,0" TextColor="White"/>
+                                <Label Text="{Binding Autor}" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding Genero}" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding Disponible, Converter={StaticResource BoolToSiNoConverter}}" Grid.Column="4" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+
+                                <StackLayout Orientation="Horizontal" Grid.Column="5" HorizontalOptions="Center" Spacing="5" Margin="20,0,0,0">
+                                    <CheckBox  IsEnabled="{Binding Disponible}" IsChecked="{Binding IsSelected}" />
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+
+</ContentPage>

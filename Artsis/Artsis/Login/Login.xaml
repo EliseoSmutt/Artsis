@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Login.Login"
+             xmlns:vmLogin="clr-namespace:Artsis.Login"
+             Title="">
+    <ScrollView x:DataType="vmLogin:LoginViewModel">
+        <Grid
+
+            Padding="0"
+            RowSpacing="10"
+            BackgroundColor="#B11C3C">
+
+            <!-- Define filas y columnas para el Grid -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Botones de navegación -->
+            <FlexLayout Grid.Row="0"
+                    Wrap="NoWrap"
+                    Direction="Row"
+                    AlignItems="Start"
+                    JustifyContent="Start"
+                    BackgroundColor="#B11C3C">
+
+                <!-- Repite la imagen hasta llenar el ancho -->
+                <Image Source="cine.jpeg"
+                   Aspect="AspectFill"
+                   WidthRequest="700"
+                   HeightRequest="250" />
+                <Image Source="cine.jpeg"
+                   Aspect="AspectFill"
+                   WidthRequest="700"
+                   HeightRequest="250" />
+                <Image Source="cine.jpeg"
+                   Aspect="AspectFill"
+                   WidthRequest="700"
+                   HeightRequest="250" />
+                <Image Source="cine.jpeg"
+          Aspect="AspectFill"
+          WidthRequest="700"
+          HeightRequest="250" />
+                <Image Source="cine.jpeg"
+Aspect="AspectFill"
+WidthRequest="700"
+HeightRequest="250" />
+
+
+            </FlexLayout>
+
+
+            <!-- Imagen y formulario -->
+            <Grid Grid.Row="1" Padding="20">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Source="logocine.png"
+                    Aspect="AspectFit"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Margin="10"/>
+
+                <VerticalStackLayout
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Margin="25,40"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Spacing="10">
+
+                    <Label
+                        TextColor="#B11C3C"
+                        Text="Bienvenido al Login!"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        Margin="0,20"/>
+                    <Entry
+                        x:Name="dniEntry"
+                        Margin="10"
+                        BackgroundColor="#DFD9BB"
+                        Placeholder="Dni:"
+                        TextColor="Black"
+                        WidthRequest="400"
+                        HeightRequest="80"
+                        PlaceholderColor="Grey"
+                        HorizontalOptions="FillAndExpand"
+                        FontSize="24"
+                        Text="{Binding Dni, Mode=TwoWay}"/>
+
+                    <Entry
+                        x:Name="passwordEntry"
+                        IsPassword="True"
+                        FontSize="24"
+                        BackgroundColor="#DFD9BB"
+                        Margin="10"
+                        TextColor="Black"
+                        Placeholder="Contraseña:"
+                        WidthRequest="400"
+                        HeightRequest="80"
+                        PlaceholderColor="Grey"
+                        HorizontalOptions="FillAndExpand"
+                        Text="{Binding Password, Mode=TwoWay}"/>
+
+                    <Button
+                        x:Name="LoginButton"
+                        Command="{Binding IniciarSesionCommand}"
+                        Clicked="IniciarSesion"
+                        Padding="10"
+                        FontSize="24"
+                        HeightRequest="70"
+                        TextColor="Black"
+                        Margin="50,30"
+                        Text="Ingresar"
+                        BackgroundColor="#DFD9BB"/>
+
+                </VerticalStackLayout>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>
+

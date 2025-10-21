@@ -1,0 +1,225 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+
+		<MauiVersion>8.0.82</MauiVersion>
+
+		<!--Codigo para compatibilizar Maui con win11-->
+		<CsWinRTRcwFactoryFallbackGeneratorForceOptOut>true</CsWinRTRcwFactoryFallbackGeneratorForceOptOut>
+		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>Artsis</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>Artsis</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.artsis</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\Images\ojo.svg" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\ojo.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Metricas\Html\Funciones\GraficoEntradasVendidasPorMes.html" />
+	  <None Remove="Resources\Images\logocine.png" />
+	  <None Remove="Resources\Images\logocineblack.png" />
+	</ItemGroup>
+
+
+
+	<ItemGroup>
+	  <EmbeddedResource Include="Metricas\Html\Abonados\GraficoAbonadosPorMes.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	  <EmbeddedResource Include="Metricas\Html\Funciones\GraficoEntradasVendidasPorMes.html">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.1.1" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.10" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Configuration" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.93" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.93" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.1" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Include="appsettings.json"></EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Core\Core.csproj" />
+	  <ProjectReference Include="..\Infraestructure\Infraestructure.csproj" />
+	  <ProjectReference Include="..\Shared\Shared.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Biblioteca\Views\NuevoLibro.xaml.cs">
+	    <DependentUpon>NuevoLibro.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Escuela\Views\NuevoTaller.xaml.cs">
+	    <DependentUpon>NuevoTaller.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Gestion\Views\NuevoEmpleado.xaml.cs">
+	    <SubType>Code</SubType>
+	    <DependentUpon>NuevoEmpleado.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Login.xaml.cs">
+	  </Compile>
+	  <Compile Update="Login\Login.xaml.cs">
+	    <DependentUpon>Login.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Administracion\Views\Administrador.xaml.cs">
+	    <DependentUpon>Administrador.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Biblioteca\Views\Biblioteca.xaml.cs">
+	    <DependentUpon>Biblioteca.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Boleteria\Funcion\Views\ModificarFuncion.xaml.cs">
+	    <DependentUpon>ModificarFuncion.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Administracion\Views\ModificarAbonado.xaml.cs">
+	    <DependentUpon>ModificarAbonado.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Boleteria\Funcion\Views\NuevaFuncion.xaml.cs">
+	    <DependentUpon>NuevaFuncion.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Administracion\Views\NuevoAbonado.xaml.cs">
+	    <DependentUpon>NuevoAbonado.xaml</DependentUpon>
+	  </Compile>
+	  <Compile Update="Metricas\Views\Abonados\AbonadosPorMes.xaml.cs">
+	    <DependentUpon>AbonadosPorMes.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="Biblioteca\Views\NuevoLibro.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Biblioteca\Views\Reservas.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Gestion\Views\Gestion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Gestion\Views\GestionLanding.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Gestion\Views\NuevoEmpleado.xaml">
+	    <SubType>Designer</SubType>
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Gestion\Views\ValidadPassAdmin.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Metricas\Views\Abonados\AbonadosPorMes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Administracion\Views\AdministradorLanging.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Biblioteca\Views\BibliotecaLanding.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Boleteria\Boleteria.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Boleteria\BoleteriaLanding.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Boleteria\Pelicula\Views\BoleteriaPeliculas.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Biblioteca\Views\BuscarReserva.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Escuela\Views\Escuela.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Escuela\Views\EscuelaLanding.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Escuela\Views\NuevoProfesor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Escuela\Views\NuevoTaller.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Escuela\Views\Profesores.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Login\Login.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Administracion\Views\Administrador.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Biblioteca\Views\Biblioteca.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Boleteria\Funcion\Views\ModificarFuncion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Administracion\Views\ModificarAbonado.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Boleteria\Funcion\Views\NuevaFuncion.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Biblioteca\Views\NuevaReserva.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Administracion\Views\NuevoAbonado.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Metricas\Metricas.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Metricas\Views\Funciones\EntradasVendidasPorMes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+</Project>

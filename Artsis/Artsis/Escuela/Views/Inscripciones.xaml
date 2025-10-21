@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Escuela.Views.Inscripciones"
+             xmlns:local="clr-namespace:Artsis.Helpers"
+             xmlns:vmEscuela="clr-namespace:Artsis.Escuela.ViewModels"
+             x:Name="InscripcionesPage"
+             Title="">
+
+
+
+    
+
+    <Grid x:DataType ="vmEscuela:InscripcionesViewModel" BackgroundColor="#040006">
+
+
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra desplegable -->
+        <StackLayout Grid.Column="0" BackgroundColor="#b11c3c" Padding="10">
+            <Label Text="Escuela" FontSize="24" TextColor="#dfd9bb" VerticalOptions="Start" Margin="0,0,0,20" />
+            <Button Text="CURSOS Y TALLERES"  Command="{Binding EscuelaCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Button Text="PROFESORES" Command="{Binding ProfesoresCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Image Source="logocine.png" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="0,10"/>
+            <Button Text="CERRAR SESION" Command="{Binding CerrarSesionCommand}" BackgroundColor="#dfd9bb" VerticalOptions="EndAndExpand"  TextColor="Black" Margin="0,10"/>
+        </StackLayout>
+
+        <!-- Contenedor Main -->
+        <ScrollView Grid.Column="1" Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <!-- Fila de información del Taller -->
+                <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, *, *, *, *" HorizontalOptions="FillAndExpand" Margin="0,0,0,15">
+                    <!-- Fila 1: Nombre del Taller centrado -->
+                    <Label Text="{Binding NombreTaller}" FontSize="26" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5"/>
+                    <Button Text="Volver"  Command="{Binding EscuelaCommand}" BackgroundColor="#b11c3c" TextColor="White" Grid.Row="0" Grid.Column="0" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+                </Grid>
+
+                <!-- Fila 2: Información del Taller a lo largo de la pantalla -->
+                <Grid RowDefinitions="Auto" ColumnDefinitions="*, *, *, *, 0.4*" HorizontalOptions="FillAndExpand" Margin="0,0,0,10">
+                    <!-- Fila 2: Información del Taller -->
+                    <Label Text="{Binding NombreTallerista, StringFormat='Tallerista:  {0}'}" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="0"/>
+                    <Label Text="{Binding FechaInicio, StringFormat='Fecha Inicio:  {0:dd/MM/yyyy}'}" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="1"/>
+                    <Label Text="{Binding FechaFinal, StringFormat='Fecha Fin:  {0:dd/MM/yyyy}'}" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="2"/>
+                    <Label Text="{Binding EspacioDescripcion, StringFormat='Espacio:  {0}'}" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="3"/>
+                    <Label Text="{Binding Cupo, StringFormat='Cupo:  {0}'}" FontSize="16" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" Grid.Row="0" Grid.Column="4"/>
+
+                </Grid>
+
+
+                <!-- Botones -->
+
+                <Grid ColumnDefinitions="*, Auto" HorizontalOptions="FillAndExpand">
+                    <BoxView Grid.Row="1" Grid.ColumnSpan="5" HeightRequest="2" BackgroundColor="Gray" HorizontalOptions="FillAndExpand" VerticalOptions="Start" />
+
+                    <!-- Columna 1: Botón Nuevo Taller -->
+                    <Button Grid.Column="0"
+                            Text="Agregar Alumno"
+                            BackgroundColor="#b11c3c"
+                            TextColor="White"
+                            HorizontalOptions="Start"
+                            VerticalOptions="Center"
+                            Margin="0,10,0,0"
+                            Command="{Binding AgregarInscripcionCommand}"
+                            CommandParameter="{Binding Id}"
+                            IsEnabled="{Binding HabilitarAcciones}"
+
+                            />
+
+                    <!-- Columna 2: Controles de la derecha -->
+                    <HorizontalStackLayout Grid.Column="1" Spacing="30" HorizontalOptions="End" VerticalOptions="Center" Margin="0,10,0,0">
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Label Text="DNI Alumno:" FontSize="14" TextColor="white" />
+                            <Entry
+                            WidthRequest="140"
+                            Text="{Binding DniFiltro, Mode=TwoWay}"
+                            TextColor="White"
+                            FontSize="18"
+                            VerticalOptions="Center" />
+                        </VerticalStackLayout>
+
+
+                        <Button Text="Filtrar Inscriptos"
+                        BackgroundColor="#b11c3c"
+                        TextColor="White"
+                        VerticalOptions="Center"
+                        Command="{Binding BuscarCommand}" />
+                    </HorizontalStackLayout>
+                </Grid>
+
+
+                <CollectionView
+                    ItemsSource="{Binding Items}"
+                    RemainingItemsThreshold="5"
+                    RemainingItemsThresholdReachedCommand="{Binding CargarMasCommand}">
+                    <!--RemainingItemsThresholdReachedCommandParameter="{Binding FiltroInscripcionesDTO}"-->
+
+                    <CollectionView.Header>
+                        <Grid BackgroundColor="Gray" Padding="10" ColumnSpacing="1">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="10" />
+                                <ColumnDefinition Width="1.5*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.5*" />
+
+                            </Grid.ColumnDefinitions>
+
+                            <Label Text="#" Grid.Column="0" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Nombre Alumno" Grid.Column="1" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Dni" Grid.Column="2" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Fecha Inscripcion" Grid.Column="3" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Telefono" Grid.Column="4" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Mail" Grid.Column="5" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                            <Label Text="Acciones" Grid.Column="6" TextColor="White" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" />
+                        </Grid>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Padding="10" ColumnSpacing="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="0.1*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="1*" />
+                                    <ColumnDefinition Width="1.5*" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Text="{Binding NroFila}" Grid.Column="0" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding NombrePersona}" Grid.Column="1" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" Margin="10,0" TextColor="White"/>
+                                <Label Text="{Binding DNIPersona}" Grid.Column="2" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding FechaInscripcion}" Grid.Column="3" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding Telefono}" Grid.Column="4" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+                                <Label Text="{Binding InfoContacto}" Grid.Column="5" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" TextColor="White"/>
+
+                                <StackLayout Orientation="Horizontal" Grid.Column="6" HorizontalOptions="Center" Spacing="5" >
+                                    <Button ImageSource="basura.png"  WidthRequest="48" HeightRequest="48" 
+                                            HorizontalOptions="EndAndExpand" BackgroundColor="#b11c3c" Margin="3" TextColor="White" 
+                                            Command="{Binding Source={x:Reference Name=InscripcionesPage}, Path=BindingContext.EliminarInscripcionCommand}" CommandParameter="{Binding DNIPersona}"
+                                            IsEnabled="{Binding Source={x:Reference Name=InscripcionesPage}, Path=BindingContext.HabilitarAcciones}"/>
+                        
+                                </StackLayout>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

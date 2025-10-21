@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Biblioteca.Views.NuevoLibro"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmNuevoLibro="clr-namespace:Artsis.Biblioteca.ViewModels"
+               Size="450,400"
+
+
+               Color="Transparent">
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <!-- Transparent to see the Frame's color -->
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmNuevoLibro:NuevoLibroViewModel"
+                     BackgroundColor="#dfd9bb"
+                     >
+
+
+            <!--<Entry Placeholder="Libro" Text="{Binding }" TextColor="Black" Margin="5"/>-->
+            <Entry Placeholder="Titulo del Libro" PlaceholderColor="black" Text="{Binding Titulo}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Autor" PlaceholderColor="black" Text="{Binding Autor}" TextColor="Black" Margin="5"/>
+            <Entry Placeholder="Editorial" PlaceholderColor="black" Text="{Binding Editorial}" TextColor="Black" Margin="5"/>
+            <!--<Entry Placeholder="Genero" Text="{Binding GeneroId}" TextColor="Black" Margin="5"/>-->
+            <Picker Title="Genero" TitleColor="Black" Margin="5"  SelectedItem="{Binding GeneroSeleccionado}" TextColor="Black" BackgroundColor="#D4CFB7">
+                <Picker.Items >
+
+                    <x:String>Ficcón</x:String>
+                    <x:String>No Ficción</x:String>
+                    <x:String>Ciencia Ficción</x:String>
+                    <x:String>Fantasía</x:String>
+                    <x:String>Misterio</x:String>
+                    <x:String>Romance</x:String>
+                    <x:String>Terror</x:String>
+                    <x:String>Biografía</x:String>
+                    <x:String>Historia</x:String>
+                    <x:String>Poesía</x:String>
+
+
+                </Picker.Items>
+            </Picker>
+
+
+            <Button Text="Registrar" Command="{Binding RegistrarLibroCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White"/>
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>

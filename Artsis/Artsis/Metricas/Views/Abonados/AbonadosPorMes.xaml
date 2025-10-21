@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Metricas.Views.Abonados.AbonadosPorMes"
+             Title="">
+    <Grid BackgroundColor="#040006">
+        <!-- Definimos las filas del Grid con proporciones ajustadas -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*" />
+            <!-- Fila grande para el WebView (3 veces más grande que la fila del botón) -->
+            <RowDefinition Height="Auto" />
+           <RowDefinition Height="Auto" />
+            <!-- Fila pequeña para el botón con altura automática -->
+        </Grid.RowDefinitions>
+
+        <!-- WebView ocupa la primera fila -->
+        <WebView x:Name="chartWebView" Grid.Row="0" />
+
+        <!-- Botón en la segunda fila, centrado y con más espacio visible -->
+        <Button Text="VOLVER"
+                
+                BackgroundColor="#b11c3c"
+                TextColor="white"
+                Clicked="OnMetricasButtonClicked"
+                Margin="5,5,5,30"
+                Grid.Row="1"
+                WidthRequest="200"
+                HeightRequest="80" 
+                HorizontalOptions="Center" />
+            <!-- Centra el botón horizontalmente -->
+    </Grid>
+</ContentPage>

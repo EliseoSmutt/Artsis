@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Metricas.Metricas"
+             xmlns:vmMetricas="clr-namespace:Artsis.Metricas"
+             Title=""
+             >
+    
+    <Grid x:DataType ="vmMetricas:MetricasViewModel"
+                         BackgroundColor="#040006">
+       
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra desplegable -->
+            <StackLayout Grid.Column="0" BackgroundColor="#b11c3c" Padding="10">
+                
+                     <Label Text="Metricas" FontSize="24" TextColor="#dfd9bb" VerticalOptions="Start" Margin="0,0,0,20" />
+            <Button Text="SOCIOS-ABONADOS" Command="{Binding SociosAbonadosCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Button Text="MÉTRICAS" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+
+                     <!--<Button Text="ÁREAS" BackgroundColor="#D8A86D" TextColor="Black" Margin="0,10"/>-->
+                     <Image Source="logocine.png" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="0,10"/>
+            <Button Text="CERRAR SESION" Command="{Binding CerrarSesionCommand}" BackgroundColor="#dfd9bb" VerticalOptions="EndAndExpand"  TextColor="Black" Margin="0,10"/>
+        </StackLayout>
+
+        <!-- Contenedor Main -->
+        <ScrollView Grid.Column="1" Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Grid RowSpacing="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                
+                </Grid>
+
+                <!-- Botones -->
+                <HorizontalStackLayout HorizontalOptions="End">
+                    
+
+                </HorizontalStackLayout>
+
+                <Button Text="Abonados por mes" Command="{Binding VerAbonadosPorMesCommand}"  BackgroundColor="#dfd9bb" TextColor="Black" Margin="130,10"/>
+                <Button Text="Entradas vendidas por mes" Command="{Binding VerEntradasPorMesCommand}"  BackgroundColor="#dfd9bb" TextColor="Black" Margin="130,10"/>
+                <Button Text="Porcentaje de abonados que utilizan la biblioteca" Command="{Binding VerAbonadosConReservasCommand}"  BackgroundColor="#dfd9bb" TextColor="Black" Margin="130,10"/>
+                <Button Text="Genero de películas mas visto" Command="{Binding VerGeneroMasRecaudadorCommand}"  BackgroundColor="#dfd9bb" TextColor="Black" Margin="130,10"/>
+                <Button Text="Personas que renovaron su abono mensual" Command="{Binding VerRenovacionesAbonosCommand}"  BackgroundColor="#dfd9bb" TextColor="Black" Margin="130,10"/>
+
+
+
+                <Button Text="Volver" Command="{Binding VolverCommand}" BackgroundColor="#dfd9bb" VerticalOptions="EndAndExpand"  TextColor="Black" Margin="130,10"/>
+
+            </VerticalStackLayout>
+        </ScrollView>
+        
+
+
+
+    </Grid>
+</ContentPage>

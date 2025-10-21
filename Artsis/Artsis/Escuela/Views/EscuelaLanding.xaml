@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Artsis.Escuela.Views.EscuelaLanding"
+             xmlns:local="clr-namespace:Artsis.Helpers"
+             xmlns:vmEscuelaLanding="clr-namespace:Artsis.Escuela.ViewModels"
+             x:Name="EscuelaLandingPage"
+             Title="">
+
+
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid x:DataType ="vmEscuelaLanding:EscuelaLandingViewModel" BackgroundColor="#040006">
+
+
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Barra desplegable -->
+        <StackLayout Grid.Column="0" BackgroundColor="#b11c3c" Padding="10">
+            <Label Text="Escuela" FontSize="24" TextColor="#dfd9bb" VerticalOptions="Start" Margin="0,0,0,20" />
+            <Button Text="CURSOS Y TALLERES" Command="{Binding EscuelaCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Button Text="PROFESORES" Command="{Binding ProfesoresCommand}" BackgroundColor="#dfd9bb" TextColor="Black" Margin="0,10"/>
+            <Image Source="logocine.png" HorizontalOptions="Center" VerticalOptions="EndAndExpand" Margin="0,10"/>
+            <Button Text="CERRAR SESION" Command="{Binding CerrarSesionCommand}" BackgroundColor="#dfd9bb" VerticalOptions="EndAndExpand"  TextColor="Black" Margin="0,10"/>
+        </StackLayout>
+
+        <!-- Contenedor Main -->
+        <ScrollView Grid.Column="1" Padding="10">
+            <VerticalStackLayout Spacing="10">
+                <Grid RowSpacing="10">
+
+                    <Image Source="logocine.png" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Margin="0,10" WidthRequest="700"/>
+
+
+                </Grid>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

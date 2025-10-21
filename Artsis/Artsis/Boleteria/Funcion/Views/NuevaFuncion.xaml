@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Boleteria.Funcion.Views.NuevaFuncion"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmNuevaFuncion="clr-namespace:Artsis.Boleteria.Funcion.ViewModels"
+               Size="450,450"
+
+
+
+
+               Color="Transparent">
+
+
+    <toolkit:Popup.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter"/>
+        </ResourceDictionary>
+    </toolkit:Popup.Resources>
+    <!-- Transparent to see the Frame's color -->
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#DFD9BB" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmNuevaFuncion:NuevaFuncionViewModel"
+                     BackgroundColor="#DFD9BB">
+
+            <Picker 
+                 Title="Selecciona una película" 
+                TitleColor="Black"
+                 ItemsSource="{Binding Peliculas}"     
+                 ItemDisplayBinding="{Binding Titulo}"
+                 SelectedItem="{Binding PeliculaSeleccionada}"
+                 TextColor="Black" 
+                 Margin="5" 
+            />
+
+            <Picker 
+                TitleColor="black"
+                 Title="Selecciona una sala"                    
+                 ItemsSource="{Binding Salas}"     
+                 ItemDisplayBinding="{Binding NombreSala}"
+                 SelectedItem="{Binding SalaSeleccionada}"
+                 TextColor="Black" 
+                 Margin="5"
+            />
+
+            <Picker 
+               
+                 Title="Selecciona un día"
+           TitleColor="Black"
+                 ItemsSource="{Binding DiasDeLaSemana}" 
+                 ItemDisplayBinding="{Binding Value}"
+                 SelectedItem="{Binding DiaSeleccionado}"
+                 TextColor="Black" 
+                 Margin="5" 
+            />
+
+             <Entry Placeholder="Horario" Text="{Binding Horario}" TextColor="Black" Margin="5"/>           
+
+
+            <Button Text="Guardar" Command="{Binding RegistrarFuncionCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White"/>
+            <Button Text="Cancelar" Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White"/>
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>

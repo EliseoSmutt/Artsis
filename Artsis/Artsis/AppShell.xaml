@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="Artsis.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:Artsis"
+    xmlns:vistaLogin="clr-namespace:Artsis.Login"
+    xmlns:vistaAdministracion="clr-namespace:Artsis.Administracion.Views"
+    xmlns:vistaBiblioteca="clr-namespace:Artsis.Biblioteca.Views"
+    xmlns:vistaBoleteria="clr-namespace:Artsis.Boleteria"
+    xmlns:vistaEscuela="clr-namespace:Artsis.Escuela.Views"
+    xmlns:vistaBoleteríaPelicula="clr-namespace:Artsis.Boleteria.Pelicula.Views"
+    xmlns:vistaMetricas="clr-namespace:Artsis.Metricas"
+    xmlns:vistaGraficosAbonados="clr-namespace:Artsis.Metricas.Views.Abonados"
+    xmlns:vistaGraficosFunciones="clr-namespace:Artsis.Metricas.Views.Funciones"
+    xmlns:vistaGestion="clr-namespace:Artsis.Gestion.Views"
+
+    
+    Shell.FlyoutBehavior="Disabled"
+    Title="Artsis">
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate vistaLogin:Login}"
+        Route="Login" />
+    
+    <ShellContent
+        Title="Metricas"
+        ContentTemplate="{DataTemplate vistaMetricas:Metricas}"
+        Route="Metricas" />
+
+    <ShellContent
+        Title="AbonadosPorMes"
+        ContentTemplate="{DataTemplate vistaGraficosAbonados:AbonadosPorMes}"
+        Route="AbonadosPorMes" />
+    
+    <ShellContent
+        Title="EntradasVendidasPorMes"
+        ContentTemplate="{DataTemplate vistaGraficosFunciones:EntradasVendidasPorMes}"
+        Route="EntradasVendidasPorMes" />
+    <ShellContent
+        Title="GeneroMasRecaudador"
+        ContentTemplate="{DataTemplate vistaGraficosFunciones:GeneroMasRecaudador}"
+        Route="GeneroMasRecaudador" />
+
+
+    <ShellContent
+        Title="AbonadosConReservas"
+        ContentTemplate="{DataTemplate vistaGraficosAbonados:AbonadosConReservas}"
+        Route="AbonadosConReservas" />
+
+    <ShellContent
+        Title="RenovacionesAbonos"
+        ContentTemplate="{DataTemplate vistaGraficosAbonados:RenovacionesAbonos}"
+        Route="RenovacionesAbonos" />
+
+
+    <ShellContent
+        Title="Administrador"
+        ContentTemplate="{DataTemplate vistaAdministracion:Administrador}"
+        Route="Administrador" />
+
+    <ShellContent
+        Title="Biblioteca"
+        ContentTemplate="{DataTemplate vistaBiblioteca:Biblioteca}"
+        Route="Biblioteca" />
+
+    <ShellContent
+        Title="Boleteria"
+        ContentTemplate="{DataTemplate vistaBoleteria:Boleteria}"
+        Route="Boleteria" />
+
+    <ShellContent
+        Title="BoleteriaPeliculas"
+        ContentTemplate="{DataTemplate vistaBoleteríaPelicula:BoleteriaPeliculas}"
+        Route="BoleteriaPeliculas" />
+
+    <ShellContent
+        Title="AdministradorLanding"
+        ContentTemplate="{DataTemplate vistaAdministracion:AdministradorLanding}"
+        Route="AdministradorLanding" />
+    <ShellContent
+        Title="BibliotecaLanding"
+        ContentTemplate="{DataTemplate vistaBiblioteca:BibliotecaLanding}"
+        Route="BibliotecaLanding" />
+    <ShellContent
+        Title="BoleteriaLanding"
+        ContentTemplate="{DataTemplate vistaBoleteria:BoleteriaLanding}"
+        Route="BoleteriaLanding" />
+    <ShellContent
+        Title="EscuelaLanding"
+        ContentTemplate="{DataTemplate vistaEscuela:EscuelaLanding}"
+        Route="EscuelaLanding" />
+    <ShellContent
+        Title="Escuela"
+        ContentTemplate="{DataTemplate vistaEscuela:Escuela}"
+        Route="Escuela" />
+    <ShellContent
+        Title="Profesores"
+        ContentTemplate="{DataTemplate vistaEscuela:Profesores}"
+        Route="Profesores" />
+  
+    <ShellContent
+    Title="Gestion"
+    ContentTemplate="{DataTemplate vistaGestion:Gestion}"
+    Route="Gestion" />
+  
+    <ShellContent
+ Title="GestionLanding"
+ ContentTemplate="{DataTemplate vistaGestion:GestionLanding}"
+ Route="GestionLanding" />
+
+   <ShellContent
+     Title="Reservas"
+     ContentTemplate="{DataTemplate vistaBiblioteca:Reservas}"
+     Route="Reservas" />
+    <ShellContent
+    Title="Inscripciones"
+    ContentTemplate="{DataTemplate vistaEscuela:Inscripciones}"
+    Route="Inscripciones" />
+
+
+
+</Shell>

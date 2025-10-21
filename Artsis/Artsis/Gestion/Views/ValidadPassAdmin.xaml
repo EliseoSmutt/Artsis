@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Gestion.Views.ValidarPassAdmin"
+               Color="Transparent">
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+        <VerticalStackLayout Padding="20" Spacing="10" BackgroundColor="#dfd9bb">
+            <Label Text="Ingrese la contraseña del administrador:" TextColor="black" />
+            <Entry x:Name="PasswordEntry" IsPassword="true" Placeholder="Contraseña" />
+            <HorizontalStackLayout Spacing="10" HorizontalOptions="End">
+                <Button Text="Aceptar" Clicked="AceptarClicked" BackgroundColor="#B11C3C" TextColor="white"/>
+                <Button Text="Cancelar" Clicked="CancelarClicked" Background="#B11C3C" TextColor="white"/>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+    </Frame>
+</toolkit:Popup>

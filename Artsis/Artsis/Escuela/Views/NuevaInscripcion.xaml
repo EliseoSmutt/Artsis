@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               x:Class="Artsis.Escuela.Views.NuevaInscripcion"
+               xmlns:local="clr-namespace:Artsis.Helpers"
+               xmlns:vmNuevaInscripcion="clr-namespace:Artsis.Escuela.ViewModels"
+               Size="450,650"
+
+
+               Color="Transparent">
+
+   
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:BoolToSiNoConverter x:Key="BoolToSiNoConverter" />
+            <local:BoolInvertConverter x:Key="BoolInvertConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <!-- Transparent to see the Frame's color -->
+
+    <Frame CornerRadius="20" Padding="0" BackgroundColor="#dfd9bb" HasShadow="True">
+
+        <StackLayout Padding="10" x:DataType="vmNuevaInscripcion:NuevaInscripcionViewModel"
+                     BackgroundColor="#dfd9bb"
+                     >
+
+
+            <Entry Placeholder="Dni del Alumno"  PlaceholderColor="#040006" Text="{Binding Dni}" TextColor="Black" Margin="5" IsEnabled="{Binding DniEnabled}"/>
+
+
+            <Button Text="Agregar Inscripcion" Command="{Binding GuardarInscripcionCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White" VerticalOptions="End" IsVisible="{Binding Boton1Visible}"/>
+            <Entry Placeholder="Nombre" PlaceholderColor="#040006" Text="{Binding Nombre}" TextColor="Black" Margin="5" IsVisible="{Binding EntryVisible}"/>
+            <Entry Placeholder="Apellido" PlaceholderColor="#040006" Text="{Binding Apellido}" TextColor="Black" Margin="5" IsVisible="{Binding EntryVisible}"/>
+            <Entry Placeholder="email" PlaceholderColor="#040006" Text="{Binding Email}" TextColor="Black" Margin="5" IsVisible="{Binding EntryVisible}"/>
+            <Entry Placeholder="telefono" PlaceholderColor="#040006" Text="{Binding Telefono}" TextColor="Black" Margin="5"  IsVisible="{Binding EntryVisible}"/>
+            <Entry Placeholder="Buscar Localidad"
+                    Text="{Binding FiltroLocalidad}"
+                    TextColor="Black"
+                    PlaceholderColor="#040006" 
+                    Margin="5"
+                    Focused="OnEntryFocused"
+                    Unfocused="OnEntryUnfocused"
+                    IsVisible="{Binding EntryVisible}"
+                    />
+
+
+            <ScrollView IsVisible="{Binding MostrarLocalidades}">
+                <CollectionView ItemsSource="{Binding LocalidadesFiltradas}"
+    SelectionMode="Single"
+    SelectedItem="{Binding LocalidadSeleccionada}"
+    MaximumHeightRequest="100"
+   >
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Label Text="{Binding Nombre}"
+       Padding="5"
+       TextColor="Black"/>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </ScrollView>
+
+            <Entry Placeholder="direccion"  PlaceholderColor="#040006" Text="{Binding Direccion}" TextColor="Black" Margin="5" IsVisible="{Binding EntryVisible}"/>
+            <Button Text="Agregar Inscripcion" Command="{Binding NuevaInscripcionCommand}" Margin="10" BackgroundColor="#b11c3c" TextColor="White" VerticalOptions="End" IsVisible="{Binding Boton2Visible}"/>
+
+            <Button Text="Cancelar"  Command="{Binding CancelarCommand}" Margin="10"  BackgroundColor="#b11c3c" TextColor="White" VerticalOptions="End"/>
+
+        </StackLayout>
+    </Frame>
+</toolkit:Popup>
